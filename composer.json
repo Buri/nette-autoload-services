@@ -1,0 +1,22 @@
+{
+    "name": "buri/nette-autoload-services",
+    "description": "Automatically load and tag services from their respective directories",
+    "type": "library",
+    "license": "GNU GPL v3",
+    "authors": [
+        {
+            "name": "Buri",
+            "email": "buri.buster@gmail.com"
+        }
+    ],
+    "require": {
+        "nette/di": "^2.4",
+        "nette/finder": "^2.4",
+        "ext-tokenizer": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Buri\\NAS\\": "src/"
+        }
+    }
+}
