@@ -59,11 +59,10 @@ class AutoloadingExtension extends CompilerExtension
 	protected function compileClass($class)
 	{
 		$builder = $this->getContainerBuilder();
-		$splits = explode('\\', $class);
-		$commandName = end($splits);
+		$kebab = preg_replace('/\\\\/', '_', $class);
 		$definition = $builder->getByType($class);
 		if (null === $definition) {
-			$definition = $builder->addDefinition($this->prefix($commandName))->setClass($class);
+			$definition = $builder->addDefinition($this->prefix($kebab))->setClass($class);
 		}
 		foreach ($this->tags as $tag) {
 			$definition->addTag($tag);
