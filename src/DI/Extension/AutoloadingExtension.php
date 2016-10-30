@@ -8,21 +8,16 @@ use Nette\Utils\Finder;
 class AutoloadingExtension extends CompilerExtension
 {
 	public $defaults = [
-		'onload' => [
-			'kdybyCommands' => [
-				'directory' => '%appDir%/Console',
-				'mask'      => '*Command.php',
-				'tag'       => 'kdyby.console.command',
-			],
-			'kdybyEvents'   => [
-				'directory' => '%appDir%/EventListeners',
-				'mask'      => ['*Listener.php', '*Subscriber.php'],
-				'tag'       => 'kdyby.subscriber',
-			],
+		'kdybyCommands' => [
+			'directory' => '%appDir%/Console',
+			'mask'      => '*Command.php',
+			'tag'       => 'kdyby.console.command',
 		],
-		'oncompile' => [
-
-		]
+		'kdybyEvents'   => [
+			'directory' => '%appDir%/EventListeners',
+			'mask'      => ['*Listener.php', '*Subscriber.php'],
+			'tag'       => 'kdyby.subscriber',
+		],
 	];
 
 	/** @var string */
@@ -31,18 +26,10 @@ class AutoloadingExtension extends CompilerExtension
 	/** @var string[] */
 	private $tags;
 
-	public function loadConfiguration()
-	{
-		$config = $this->getConfig($this->defaults);
-		foreach ($config['onload'] as $group) {
-			$this->processGroup($group);
-		}
-	}
-
 	public function beforeCompile()
 	{
 		$config = $this->getConfig($this->defaults);
-		foreach ($config['oncompile'] as $group) {
+		foreach ($config as $group) {
 			$this->processGroup($group);
 		}
 	}
@@ -125,4 +112,5 @@ class AutoloadingExtension extends CompilerExtension
 		return $namespace . '\\' . $class;
 	}
 }
+
 
