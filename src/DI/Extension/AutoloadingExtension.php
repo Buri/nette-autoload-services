@@ -62,7 +62,13 @@ class AutoloadingExtension extends CompilerExtension
 		$kebab = preg_replace('/\\\\/', '_', $class);
 		$definition = $builder->getByType($class);
 		if (null === $definition) {
-			$definition = $builder->addDefinition($this->prefix($kebab))->setClass($class);
+			$definition = $builder->addDefinition($this->prefix($kebab));
+			if (interface_exists($class) === true) {
+				$definition->setImplement($class);
+			} else {
+				$definition->setType($class);
+			}
+		}
 		}
 		foreach ($this->tags as $tag) {
 			$definition->addTag($tag);
@@ -96,7 +102,7 @@ class AutoloadingExtension extends CompilerExtension
 					}
 				}
 
-				if ($tokens[$i][0] === T_CLASS) {
+				if ($tokens[$i][0] === T_CLASS || $tokens[$i][0] === T_INTERFACE) {
 					for ($j = $i + 1; $j < count($tokens); $j++) {
 						if ($tokens[$j] === '{') {
 							$class = $tokens[$i + 2][1];
