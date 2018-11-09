@@ -2,7 +2,7 @@
     "name": "buri/nette-autoload-services",
     "description": "Automatically load and tag services from their respective directories",
     "type": "library",
-    "license": "GNU GPL v3",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Buri",
