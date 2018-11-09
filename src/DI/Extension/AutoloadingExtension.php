@@ -69,7 +69,6 @@ class AutoloadingExtension extends CompilerExtension
 				$definition->setType($class);
 			}
 		}
-		}
 		foreach ($this->tags as $tag) {
 			$definition->addTag($tag);
 		}
